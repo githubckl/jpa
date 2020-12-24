@@ -6,8 +6,7 @@ import javax.persistence.Persistence;
 
 public class SaveStudent {
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Student_entity");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = JpaUtils.getEntityManager();
 
         em.getTransaction().begin();
 
@@ -21,7 +20,6 @@ public class SaveStudent {
         em.getTransaction().commit();
 
         em.close();
-        emf.close();
 
         System.out.println("All job done.");//原文出自【易百教程】，商业转载请联系作者获得授权，非商业请保留原文链接：https://www.yiibai.com/jpa/jpa-inserting-an-entity.html#article-start
 
