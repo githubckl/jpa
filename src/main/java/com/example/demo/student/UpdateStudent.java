@@ -19,7 +19,7 @@ public class UpdateStudent {
         s.setS_age(30);
         em.merge(s);
         em.getTransaction().commit();
-        em.close();
+         em.close();
         emf.close();
         Student new_s=em.find(Student.class,1001);
         System.out.println(new_s.getS_age());
