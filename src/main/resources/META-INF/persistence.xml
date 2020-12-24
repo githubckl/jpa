@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <!--    持久化单元
+    transaction-type是jta时是分布式事务管理,表示表来自不同的数据库需要多个不同的链接
+    是resource_local时是本地事务管理,当所有表来自于一个数据库时
+    -->
+    <persistence-unit name="Student_entity" transaction-type="RESOURCE_LOCAL">
+
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>com.example.demo.student.Student</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver"
+                      value="com.mysql.cj.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:mysql://localhost:3306/mytest?serverTimezone=UTC"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="root"/>
+            <property name="eclipselink.logging.level" value="SEVERE"/>
+            <property name="eclipselink.ddl-generation"
+                      value="create-or-extend-tables"/>
+            <property name="hibernate.show_sql" value="true"/>
+
+        </properties>
+    </persistence-unit>
+    <persistence-unit name="Collection_Type">
+        <class>com.example.demo.collection.list.Employee</class>
+        <class>com.example.demo.collection.list.Address</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver"
+                      value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:mysql://localhost:3306/mytest?serverTimezone=UTC"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password"
+                      value="root"/>
+            <property name="eclipselink.logging.level" value="SEVERE"/>
+            <property name="eclipselink.ddl-generation"
+                      value="create-or-extend-tables"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.show_sql" value="true"/>
+
+        </properties>
+    </persistence-unit>
+    <persistence-unit name="Book_issued">
+        <class>com.example.demo.mapping.Students</class>
+        <class>com.example.demo.mapping.Library</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver"
+                      value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:mysql:///mytest?serverTimezone=UTC"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password"
+                      value="root"/>
+            <property name="eclipselink.logging.level" value="SEVERE"/>
+            <property name="eclipselink.ddl-generation"
+                      value="create-or-extend-tables"/>
+            <property name="hibernate.show_sql" value="true"/>
+
+        </properties>
+    </persistence-unit>
+
+</persistence>
