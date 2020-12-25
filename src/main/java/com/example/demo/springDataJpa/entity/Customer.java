@@ -1,9 +1,12 @@
 package com.example.demo.springDataJpa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "customer")
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer","handler"})
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
