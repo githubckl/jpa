@@ -1,13 +1,17 @@
 package com.example.demo.springDataJpa.controller;
 
 import com.example.demo.springDataJpa.entity.Customer;
+import com.example.demo.springDataJpa.entity.LinkMan;
 import com.example.demo.springDataJpa.service.impl.CustomerImpl;
+import com.example.demo.springDataJpa.service.impl.LinkManImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -15,6 +19,8 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     CustomerImpl customerRepository;
+    @Autowired
+    LinkManImpl linkManRepository;
 
     @GetMapping("findAll")
     public List findALl() {
@@ -124,5 +130,32 @@ public class CustomerController {
     @GetMapping("specification5")
     public Page<Customer> specification5() {
         return customerRepository.findAllPageAndSort();
+    }
+
+    /*保存一对多的两个表的数据*/
+    @GetMapping("foreignKey")
+    @Transactional
+    @Rollback(value = false)
+    public void foreignKey() {
+        Customer customer = new Customer();
+        customer.setCustName("客户");
+        LinkMan linkMan = new LinkMan();
+        linkMan.setLkmName("联系人");
+        customer.getLinkManSet().add(linkMan);
+        customerRepository.saveCustomer(customer);
+        linkManRepository.save(linkMan);
+    }
+    /*保存多对一的两个表的数据*/
+    @GetMapping("foreignKey1")
+    @Transactional
+    @Rollback(value = false)
+    public void foreignKey1() {
+        Customer customer = new Customer();
+        customer.setCustName("客户1");
+        LinkMan linkMan = new LinkMan();
+        linkMan.setLkmName("联系人1");
+        linkMan.setCustomer(customer);
+        customerRepository.saveCustomer(customer);
+        linkManRepository.save(linkMan);
     }
 }
