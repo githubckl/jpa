@@ -37,8 +37,11 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>, JpaSp
 
     @Query(value = "select * from customer where cust_name like %?1%", nativeQuery = true)
     public List sql(String cust_name);
-//方法命名查询,findBy+属性名称+查询方式(like|isnull等等)
-public List findByCustName(String cust_name);
-    public List findByCustIdBetween(long id1,long id2);
-    public List findByCustNameLikeAndCustId(String custName,long id);
+
+    //方法命名查询,findBy+属性名称+查询方式(like|isnull等等)
+    public List findByCustName(String cust_name);
+
+    public List findByCustIdBetween(long id1, long id2);
+
+    public List findByCustNameLikeAndCustId(String custName, long id);
 }

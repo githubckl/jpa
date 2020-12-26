@@ -77,22 +77,44 @@ public class CustomerController {
     public void jpqlUpdate(String custName, long custId) {
         customerRepository.jpqlUpdate(custName, custId);
     }
+
     @GetMapping("sql")
     public List sql(String cust_name) {
-      return   customerRepository.sql(cust_name);
+        return customerRepository.sql(cust_name);
     }
+
     /*方法名称规则查询*/
     @GetMapping("findByCustName")
     public List findByCustName(String cust_name) {
         return customerRepository.findByCustName(cust_name);
     }
+
     /*方法名称规则复杂查询*/
     @GetMapping("findByCustIdBetween")
-    public List findByCustIdBetween(long id1,long id2) {
+    public List findByCustIdBetween(long id1, long id2) {
         return customerRepository.findByCustIdBetween(id1, id2);
     }
+
     @GetMapping("findByCustNameAndCustId")
-    public List findByCustNameLikeAndCustId(String custName,long id) {
-        return customerRepository.findByCustNameLikeAndCustId("%"+custName+"%", id);
+    public List findByCustNameLikeAndCustId(String custName, long id) {
+        return customerRepository.findByCustNameLikeAndCustId("%" + custName + "%", id);
+    }
+
+    @GetMapping("specification")
+    public Customer specification() {
+        return customerRepository.findOne();
+    }
+
+    @GetMapping("specification2")
+    public Customer specification2() {
+        return customerRepository.findOne2();
+    }
+
+    @GetMapping("specification3")
+    public List specification3() {
+        return customerRepository.findAllSpec();
+    }@GetMapping("specification4")
+    public List specification4() {
+        return customerRepository.findAllSort();
     }
 }
