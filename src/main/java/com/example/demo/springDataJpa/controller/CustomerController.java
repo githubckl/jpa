@@ -3,6 +3,7 @@ package com.example.demo.springDataJpa.controller;
 import com.example.demo.springDataJpa.entity.Customer;
 import com.example.demo.springDataJpa.service.impl.CustomerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -116,5 +117,9 @@ public class CustomerController {
     }@GetMapping("specification4")
     public List specification4() {
         return customerRepository.findAllSort();
+    }
+    @GetMapping("specification5")
+    public Page<Customer> specification5() {
+        return customerRepository.findAllPageAndSort();
     }
 }

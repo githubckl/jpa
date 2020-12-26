@@ -1,6 +1,7 @@
 package com.example.demo.springDataJpa.service;
 
 import com.example.demo.springDataJpa.entity.Customer;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -39,5 +40,5 @@ public interface CustomerService {
 
     public Customer findOne2();
     public List findAllSpec();
-    public List findAllSort();public List findAllPage();
+    public List findAllSort();public Page<Customer> findAllPageAndSort();
 }

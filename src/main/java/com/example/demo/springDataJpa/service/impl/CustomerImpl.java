@@ -4,6 +4,8 @@ import com.example.demo.springDataJpa.dao.CustomerRepository;
 import com.example.demo.springDataJpa.entity.Customer;
 import com.example.demo.springDataJpa.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -124,17 +126,18 @@ public class CustomerImpl implements CustomerService {
                 Predicate ooo = criteriaBuilder.equal(custName, "ooo");
                 Path<Object> custIndustry = root.get("custIndustry");
                 Predicate it = criteriaBuilder.equal(custIndustry, "it");
-                Predicate and= criteriaBuilder.and(ooo,it);
+                Predicate and = criteriaBuilder.and(ooo, it);
 //                Predicate and= criteriaBuilder.or(ooo,it);
                 return and;
             }
         };
-        return (Customer)customerRepository.findOne(specification).get();
+        return (Customer) customerRepository.findOne(specification).get();
     }
+
     //使用specification得到list结果
     @Override
     public List findAllSpec() {
-        Specification<Customer> specification=new Specification<Customer>() {
+        Specification<Customer> specification = new Specification<Customer>() {
             @Override
             public Predicate toPredicate(Root<Customer> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
                 Path<Object> custName = root.get("custName");
@@ -149,7 +152,7 @@ public class CustomerImpl implements CustomerService {
 
     @Override
     public List findAllSort() {
-        Specification<Customer> specification=new Specification<Customer>() {
+        Specification<Customer> specification = new Specification<Customer>() {
             @Override
             public Predicate toPredicate(Root<Customer> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
                 Path<Object> custName = root.get("custName");
@@ -160,12 +163,13 @@ public class CustomerImpl implements CustomerService {
             }
         };
 
-        return customerRepository.findAll(specification, Sort.by(Sort.Direction.DESC,"custIndustry"));
+        return customerRepository.findAll(specification, Sort.by(Sort.Direction.DESC, "custIndustry"));
     }
 
+    //分页+排序
     @Override
-    public List findAllPage() {
-        Specification<Customer> specification=new Specification<Customer>() {
+    public Page<Customer> findAllPageAndSort() {
+        Specification<Customer> specification = new Specification<Customer>() {
             @Override
             public Predicate toPredicate(Root<Customer> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
                 Path<Object> custName = root.get("custName");
@@ -175,9 +179,9 @@ public class CustomerImpl implements CustomerService {
                 return like;
             }
         };
-
-        return customerRepository.findAll(specification, new Pageable() {
-        });
+        Sort sort = Sort.by(Sort.Direction.DESC, "custIndustry");
+        Pageable pageable = PageRequest.of(0, 2, sort);
+        return customerRepository.findAll(specification, pageable);
     }
 
 }
