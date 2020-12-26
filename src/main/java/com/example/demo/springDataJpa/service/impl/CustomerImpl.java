@@ -59,5 +59,35 @@ public class CustomerImpl implements CustomerService {
         return customerRepository.getOne(id);
     }
 
+    @Override
+    public List jpql(String custName) {
+        return customerRepository.jpql(custName);
+    }
+
+    @Override
+    public List jpql2(String custName, long custId) {
+        return customerRepository.jpql2(custName,custId);
+    }
+
+    @Override
+    public void jpqlUpdate(String custName, long custId) {
+        customerRepository.jpqlUpdate(custName,custId);
+    }
+
+    @Override
+    public List sql(String cust_name) {
+        return customerRepository.sql(cust_name);
+    }
+    public List findByCustName(String cust_name){
+        return customerRepository.findByCustName(cust_name);
+    }
+
+    @Override
+    public List findByCustIdBetween(long id1, long id2) {
+        return customerRepository.findByCustIdBetween(id1,id2);
+    }
+    public List findByCustNameLikeAndCustId(String custName,long id){
+        return customerRepository.findByCustNameLikeAndCustId(custName,id);
+    }
 
 }
