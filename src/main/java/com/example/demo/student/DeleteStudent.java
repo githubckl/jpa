@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 public class DeleteStudent {
     public static void main(String args[]) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Student_details");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Student");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 //根据主键找到要删除的对象,然后用remove直接删除

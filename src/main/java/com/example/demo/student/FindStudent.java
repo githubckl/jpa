@@ -6,7 +6,7 @@ import javax.persistence.Persistence;
 
 public class FindStudent {
     public static void main(String args[]) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Student_entity");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Student");
         EntityManager em = emf.createEntityManager();
 //find是根据主键来查找实体的,其中类对象提供了表名
         Student s = em.find(Student.class, 1001);

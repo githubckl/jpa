@@ -3,10 +3,12 @@ package com.example.demo.springDataJpa.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "customer")
-@JsonIgnoreProperties(value = {"hibernateLazyInitializer","handler"})
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +26,22 @@ public class Customer {
     private String custSource;
     @Column(name = "cust_phone")
     private String custPhone;
+//    利用类的组合关系和注解来确定表的一对多关系,这里推荐用set
+    @OneToMany(targetEntity = LinkMan.class)
+//    配置外键,告知哪个是外键以及是哪个主表的主键的外键
+    @JoinColumn(name = "lkm_cust_id",referencedColumnName = "cust_id")
+    private Set<LinkMan> linkManSet = new HashSet<LinkMan>();
 
     public long getCustId() {
         return custId;
+    }
+
+    public Set<LinkMan> getLinkManSet() {
+        return linkManSet;
+    }
+
+    public void setLinkManSet(Set<LinkMan> linkManSet) {
+        this.linkManSet = linkManSet;
     }
 
     @Override

@@ -114,10 +114,13 @@ public class CustomerController {
     @GetMapping("specification3")
     public List specification3() {
         return customerRepository.findAllSpec();
-    }@GetMapping("specification4")
+    }
+
+    @GetMapping("specification4")
     public List specification4() {
         return customerRepository.findAllSort();
     }
+
     @GetMapping("specification5")
     public Page<Customer> specification5() {
         return customerRepository.findAllPageAndSort();

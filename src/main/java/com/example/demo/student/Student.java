@@ -2,7 +2,7 @@ package com.example.demo.student;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "student_entity")
+@Table(name = "student")
 public class Student {
 
     @Id

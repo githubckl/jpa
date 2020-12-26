@@ -6,7 +6,7 @@ import javax.persistence.Persistence;
 
 public class ReferenceStudent {
     public static void main(String args[]) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Student_entity");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Student");
         EntityManager em = emf.createEntityManager();
 //只有在使用查询结果时getReference才会发送sql语句到mysql,否则不查询
         Student s = em.getReference(Student.class, 1001);

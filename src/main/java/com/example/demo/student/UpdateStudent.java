@@ -6,7 +6,7 @@ import javax.persistence.Persistence;
 
 public class UpdateStudent {
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Student_entity");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Student");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 //先利用find和主键来找到要修改的记录
