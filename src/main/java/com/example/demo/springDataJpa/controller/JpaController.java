@@ -2,8 +2,12 @@ package com.example.demo.springDataJpa.controller;
 
 import com.example.demo.springDataJpa.entity.Customer;
 import com.example.demo.springDataJpa.entity.LinkMan;
+import com.example.demo.springDataJpa.entity.Role;
+import com.example.demo.springDataJpa.entity.User;
 import com.example.demo.springDataJpa.service.impl.CustomerImpl;
 import com.example.demo.springDataJpa.service.impl.LinkManImpl;
+import com.example.demo.springDataJpa.service.impl.RoleImpl;
+import com.example.demo.springDataJpa.service.impl.UserImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.test.annotation.Rollback;
@@ -15,12 +19,16 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
-@RequestMapping("customer")
-public class CustomerController {
+@RequestMapping("jpa")
+public class JpaController {
     @Autowired
     CustomerImpl customerRepository;
     @Autowired
     LinkManImpl linkManRepository;
+    @Autowired
+    UserImpl userimpl;
+    @Autowired
+    RoleImpl roleImpl;
 
     @GetMapping("findAll")
     public List findALl() {
@@ -173,7 +181,8 @@ public class CustomerController {
         customerRepository.saveCustomer(customer);
         linkManRepository.save(linkMan);
     }
-/*级联添加,添加主表对象的时候也添加从表对象*/
+
+    /*级联添加,添加主表对象的时候也添加从表对象*/
     @GetMapping("cascadeSave")
     @Transactional
     @Rollback(value = false)
@@ -187,6 +196,7 @@ public class CustomerController {
         customerRepository.saveCustomer(customer);
 //        linkManRepository.save(linkMan);
     }
+
     /*级联删除,删除主表对象时也删除从表对象*/
     @GetMapping("cascadeDelete")
     @Transactional
@@ -195,6 +205,21 @@ public class CustomerController {
         Customer customer = customerRepository.findCustomer(1l);
 
         customerRepository.deleteCustomer(customer.getCustId());
-//        linkManRepository.save(linkMan);
+    }/*级联删除,删除主表对象时也删除从表对象*/
+
+    @GetMapping("manyToMany")
+    @Transactional
+    @Rollback(value = false)
+    public void manyToMany() {
+        User user = new User();
+        user.setUserName("ckl");
+        user.setAge(25);
+
+        Role role = new Role();
+        role.setRoleName("程序员");
+        user.getRoles().add(role);
+
+        userimpl.save(user);
+        roleImpl.save(role);
     }
 }
