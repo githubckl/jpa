@@ -222,4 +222,43 @@ public class JpaController {
         userimpl.save(user);
         roleImpl.save(role);
     }
+
+    //    多对多级联操作,保存主体的同时保存从表对象,而中间表也保存了两个对象的关系
+    @GetMapping("manyToManyCascadeAdd")
+    @Transactional
+    @Rollback(value = false)
+    public void manyToManyCascadeAdd() {
+        User user = new User();
+        user.setUserName("ckl");
+        user.setAge(25);
+
+        Role role = new Role();
+        role.setRoleName("程序员");
+        user.getRoles().add(role);
+        userimpl.save(user);
+
+    }
+
+    @GetMapping("manyToManyCascadeDelete")
+    @Transactional
+    @Rollback(value = false)
+    public void manyToManyCascadeDelete() {
+        User one = userimpl.findOne(1);
+        userimpl.delete(one);
+    }
+
+    @GetMapping("oneToManyQuery")
+    @Transactional
+    @Rollback(value = false)
+    public void oneToManyQuery() {
+        Customer one = customerRepository.getOne(1);
+        System.out.println(one.getLinkManSet());
+    }
+    @GetMapping("manyToOneQuery")
+    @Transactional
+    @Rollback(value = false)
+    public void manyToOneQuery() {
+        LinkMan one = linkManRepository.getOne(1);
+        System.out.println(one.getCustomer());
+    }
 }

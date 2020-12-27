@@ -13,4 +13,14 @@ public class UserImpl implements UserService {
     public void save(User user){
         userRepository.save(user);
     }
+
+    @Override
+    public User findOne(long id) {
+        return userRepository.findById(id).get();
+    }
+
+    @Override
+    public void delete(User user) {
+        userRepository.delete(user);
+    }
 }

@@ -16,7 +16,7 @@ public class User {
     @Column(name = "age")
     private Integer age;
 
-    @ManyToMany(targetEntity = Role.class)
+    @ManyToMany(targetEntity = Role.class,cascade = CascadeType.ALL)
     //     配置中间表的注解
     @JoinTable(name = "user_role",
 //            当前对象在中间表的外键

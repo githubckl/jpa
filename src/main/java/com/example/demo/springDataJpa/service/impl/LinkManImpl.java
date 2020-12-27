@@ -14,4 +14,9 @@ public class LinkManImpl implements LinkManService {
     public void save(LinkMan linkMan) {
         linkManRepository.save(linkMan);
     }
+
+    @Override
+    public LinkMan getOne(long id) {
+        return linkManRepository.getOne(id);
+    }
 }
