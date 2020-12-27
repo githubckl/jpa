@@ -27,9 +27,11 @@ public class Customer {
     @Column(name = "cust_phone")
     private String custPhone;
 //    利用类的组合关系和注解来确定表的一对多关系,这里推荐用set
-    @OneToMany(targetEntity = LinkMan.class)
+//    @OneToMany(targetEntity = LinkMan.class)
 //    配置外键,告知哪个是外键以及是哪个主表的主键的外键
-    @JoinColumn(name = "lkm_cust_id",referencedColumnName = "cust_id")
+//    @JoinColumn(name = "lkm_cust_id",referencedColumnName = "cust_id")
+//    使用MappedBy是放弃了对外键的维护权,这样在添加主从表数据时不会对外键进行更新
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
     private Set<LinkMan> linkManSet = new HashSet<LinkMan>();
 
     public long getCustId() {

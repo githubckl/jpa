@@ -136,7 +136,7 @@ public class CustomerController {
     @GetMapping("foreignKey")
     @Transactional
     @Rollback(value = false)
-    public void foreignKey() {
+    public void foreignKeySave() {
         Customer customer = new Customer();
         customer.setCustName("客户");
         LinkMan linkMan = new LinkMan();
@@ -145,11 +145,12 @@ public class CustomerController {
         customerRepository.saveCustomer(customer);
         linkManRepository.save(linkMan);
     }
+
     /*保存多对一的两个表的数据*/
     @GetMapping("foreignKey1")
     @Transactional
     @Rollback(value = false)
-    public void foreignKey1() {
+    public void foreignKeySave1() {
         Customer customer = new Customer();
         customer.setCustName("客户1");
         LinkMan linkMan = new LinkMan();
@@ -157,5 +158,43 @@ public class CustomerController {
         linkMan.setCustomer(customer);
         customerRepository.saveCustomer(customer);
         linkManRepository.save(linkMan);
+    }/*保存多对一的两个表的数据*/
+
+    @GetMapping("foreignKey2")
+    @Transactional
+    @Rollback(value = false)
+    public void foreignKeySave2() {
+        Customer customer = new Customer();
+        customer.setCustName("客户1");
+        LinkMan linkMan = new LinkMan();
+        linkMan.setLkmName("联系人1");
+        linkMan.setCustomer(customer);
+        customer.getLinkManSet().add(linkMan);
+        customerRepository.saveCustomer(customer);
+        linkManRepository.save(linkMan);
+    }
+/*级联添加,添加主表对象的时候也添加从表对象*/
+    @GetMapping("cascadeSave")
+    @Transactional
+    @Rollback(value = false)
+    public void cascadeSave() {
+        Customer customer = new Customer();
+        customer.setCustName("客户1");
+        LinkMan linkMan = new LinkMan();
+        linkMan.setLkmName("联系人1");
+        linkMan.setCustomer(customer);
+        customer.getLinkManSet().add(linkMan);
+        customerRepository.saveCustomer(customer);
+//        linkManRepository.save(linkMan);
+    }
+    /*级联删除,删除主表对象时也删除从表对象*/
+    @GetMapping("cascadeDelete")
+    @Transactional
+    @Rollback(value = false)
+    public void cascadeDelete() {
+        Customer customer = customerRepository.findCustomer(1l);
+
+        customerRepository.deleteCustomer(customer.getCustId());
+//        linkManRepository.save(linkMan);
     }
 }
